@@ -1,6 +1,6 @@
 [build]
   base = "frontend"
-  command = "npm ci && ./node_modules/.bin/vite build"
+  command = "npm ci && npm exec vite build"
   publish = "dist"
   functions = "netlify/functions"
 
