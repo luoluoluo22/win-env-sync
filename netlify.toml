@@ -1,6 +1,6 @@
 [build]
   base = "frontend"
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
   functions = "netlify/functions"
 
@@ -22,7 +22,7 @@
 
 # API 重定向
 [[redirects]]
-  from = "/.netlify/functions/*"
+  from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
   force = true
@@ -73,5 +73,5 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.mongodb.net *.netlify.app /.netlify/functions/*; img-src 'self' data: https:; font-src 'self' data: https:;"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.mongodb.net *.netlify.app /api/*; img-src 'self' data: https:; font-src 'self' data: https:;"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"

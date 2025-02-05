@@ -1,5 +1,5 @@
 // API 基础配置
-export const API_BASE_URL = '/.netlify/functions'
+export const API_BASE_URL = '/api'
 
 // axios 实例配置
 export const axiosConfig = {
