@@ -100,7 +100,7 @@ async function handleSubmit() {
   try {
     await formRef.value.validate()
     loading.value = true
-
+    console.log('Sending request to:', API_ENDPOINTS.AUTH.REGISTER)
     await http.post(API_ENDPOINTS.AUTH.REGISTER, {
       email: form.value.email,
       username: form.value.username,
@@ -110,6 +110,7 @@ async function handleSubmit() {
     ElMessage.success('注册成功！请登录')
     router.push('/login')
   } catch (error) {
+    console.error('Registration error:', error)
     if (error.message) {
       ElMessage.error(error.message)
     } else {

@@ -1,6 +1,5 @@
 // API 基础配置
-export const API_BASE_URL =
-  import.meta.env.VITE_APP_API_URL || '/.netlify/functions'
+export const API_BASE_URL = '/.netlify/functions'
 
 // axios 实例配置
 export const axiosConfig = {
@@ -15,15 +14,15 @@ export const axiosConfig = {
 export const API_ENDPOINTS = {
   // 认证相关
   AUTH: {
-    REGISTER: '/register',
-    LOGIN: '/login',
-    LOGOUT: '/logout',
-    ME: '/me',
+    REGISTER: 'register', // 不带前导斜杠
+    LOGIN: 'login', // 不带前导斜杠
+    LOGOUT: 'logout', // 不带前导斜杠
+    ME: 'me', // 不带前导斜杠
   },
   // 环境变量相关
   ENV: {
-    LIST: '/env-list',
-    UPDATE: '/env-update',
-    DELETE: '/env-delete',
+    LIST: 'env-list', // 不带前导斜杠
+    UPDATE: 'env-update', // 不带前导斜杠
+    DELETE: 'env-delete', // 不带前导斜杠
   },
 }
