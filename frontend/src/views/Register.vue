@@ -4,8 +4,8 @@
       <template #header>
         <h2>注册账号</h2>
       </template>
-      
-      <el-form 
+
+      <el-form
         ref="formRef"
         :model="form"
         :rules="rules"
@@ -15,26 +15,24 @@
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="form.email" type="email" />
         </el-form-item>
-        
+
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username" />
         </el-form-item>
-        
+
         <el-form-item label="密码" prop="password">
           <el-input v-model="form.password" type="password" />
         </el-form-item>
-        
+
         <el-form-item label="确认密码" prop="confirmPassword">
           <el-input v-model="form.confirmPassword" type="password" />
         </el-form-item>
-        
+
         <el-form-item>
           <el-button type="primary" native-type="submit" :loading="loading">
             注册
           </el-button>
-          <el-button @click="$router.push('/login')">
-            返回登录
-          </el-button>
+          <el-button @click="$router.push('/login')"> 返回登录 </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -45,9 +43,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import axios from 'axios'
-
-const API_BASE_URL = '/api'
+import http from '../utils/axios'
 
 const router = useRouter()
 const formRef = ref(null)
@@ -57,7 +53,7 @@ const form = ref({
   email: '',
   username: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
 })
 
 const validatePass = (rule, value, callback) => {
@@ -84,34 +80,32 @@ const validatePass2 = (rule, value, callback) => {
 const rules = {
   email: [
     { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+    { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' },
   ],
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+    { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' },
   ],
   password: [
     { validator: validatePass, trigger: 'blur' },
-    { min: 6, message: '密码长度不能小于6个字符', trigger: 'blur' }
+    { min: 6, message: '密码长度不能小于6个字符', trigger: 'blur' },
   ],
-  confirmPassword: [
-    { validator: validatePass2, trigger: 'blur' }
-  ]
+  confirmPassword: [{ validator: validatePass2, trigger: 'blur' }],
 }
 
 async function handleSubmit() {
   if (!formRef.value) return
-  
+
   try {
     await formRef.value.validate()
     loading.value = true
-    
-    await axios.post(`${API_BASE_URL}/auth/register`, {
+
+    await http.post('/register', {
       email: form.value.email,
       username: form.value.username,
-      password: form.value.password
+      password: form.value.password,
     })
-    
+
     ElMessage.success('注册成功！请登录')
     router.push('/login')
   } catch (error) {
@@ -150,4 +144,4 @@ async function handleSubmit() {
   font-size: 24px;
   color: #303133;
 }
-</style> 
+</style>

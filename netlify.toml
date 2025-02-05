@@ -4,13 +4,16 @@
   publish = "dist"
   functions = "netlify/functions"
 
-# API 重定向
+# API 重定向（处理预检请求）
 [[redirects]]
-  from = "/*"
+  from = "/.netlify/functions/*"
   to = "/.netlify/functions/:splat"
   status = 200
   force = true
-  conditions = {Path = ["/login", "/register", "/logout", "/me"]}
+  [redirects.headers]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
 
 # SPA重定向
 [[redirects]]
@@ -40,7 +43,4 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.mongodb.net *.netlify.app; img-src 'self' data: https:; font-src 'self' data: https:;"
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-    Access-Control-Allow-Headers = "X-Requested-With, Content-Type, Authorization"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.mongodb.net *.netlify.app netlify.app /.netlify/functions/*; img-src 'self' data: https:; font-src 'self' data: https:;"
