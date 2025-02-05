@@ -39,7 +39,7 @@
 
 # 环境变量设置
 [build.environment]
-  NODE_VERSION = "16"
+  NODE_VERSION = "18"
 
 # 生产环境配置
 [context.production.environment]
