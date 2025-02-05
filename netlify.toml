@@ -4,7 +4,6 @@
   publish = "dist"
   functions = "netlify/functions"
 
-# API 重定向（处理预检请求）
 [[redirects]]
   from = "/.netlify/functions/*"
   to = "/.netlify/functions/:splat"
@@ -15,27 +14,26 @@
     Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
 
-# SPA重定向
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# 环境变量设置
 [build.environment]
   NODE_VERSION = "16"
 
-# 生产环境配置
 [context.production.environment]
   MONGODB_URI = "mongodb+srv://admin:a13689663458@cluster0.2b2h0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   JWT_SECRET = "win-env-sync-production-secret-key-2025"
 
-# 开发环境配置
-[context.branch-deploy.environment]
-  MONGODB_URI = "mongodb+srv://admin:a13689663458@cluster0.2b2h0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  JWT_SECRET = "win-env-sync-dev-secret-key-2025"
+[dev]
+  framework = "#custom"
+  command = "npm run dev"
+  targetPort = 5173
+  port = 8888
+  publish = "dist"
+  autoLaunch = true
 
-# 确保使用HTTPS
 [[headers]]
   for = "/*"
   [headers.values]
@@ -43,4 +41,4 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.mongodb.net *.netlify.app netlify.app /.netlify/functions/*; img-src 'self' data: https:; font-src 'self' data: https:;"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.mongodb.net *.netlify.app /.netlify/functions/*; img-src 'self' data: https:; font-src 'self' data: https:;"

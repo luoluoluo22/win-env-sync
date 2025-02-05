@@ -19,9 +19,11 @@ http.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`
     }
 
-    // 针对Netlify Functions的特殊处理
+    // 确保不会重复添加/.netlify/functions前缀
     if (!config.url.startsWith('http') && !config.url.startsWith('/.netlify')) {
-      config.url = `/.netlify/functions${config.url}`
+      // 移除开头的斜杠
+      const url = config.url.startsWith('/') ? config.url.slice(1) : config.url
+      config.url = url
     }
 
     return config
