@@ -41,12 +41,13 @@
 [build.environment]
   NODE_VERSION = "18"
   NODE_ENV = "development"
+  # 确保在构建时能安装devDependencies
 
 # 生产环境配置
 [context.production.environment]
   MONGODB_URI = "mongodb+srv://admin:a13689663458@cluster0.2b2h0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   JWT_SECRET = "win-env-sync-production-secret-key-2025"
-  NODE_ENV = "production"
+
 
 # 开发环境配置
 [context.branch-deploy.environment]
