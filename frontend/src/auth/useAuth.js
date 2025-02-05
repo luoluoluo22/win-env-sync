@@ -3,11 +3,11 @@ import http from '../utils/axios'
 export function useAuth() {
   const login = async ({ email, password }) => {
     try {
-      const { token, user } = await http.post('/auth/login', {
+      const { token, user } = await http.post('/login', {
         email,
-        password
+        password,
       })
-      
+
       localStorage.setItem('token', token)
       return user
     } catch (error) {
@@ -17,7 +17,7 @@ export function useAuth() {
 
   const logout = async () => {
     try {
-      await http.post('/auth/logout')
+      await http.post('/logout')
     } finally {
       localStorage.removeItem('token')
     }
@@ -30,7 +30,7 @@ export function useAuth() {
     }
 
     try {
-      return await http.get('/auth/me')
+      return await http.get('/me')
     } catch (error) {
       localStorage.removeItem('token')
       return null
@@ -40,6 +40,6 @@ export function useAuth() {
   return {
     login,
     logout,
-    checkAuth
+    checkAuth,
   }
-} 
+}
