@@ -22,8 +22,8 @@ export const API_ENDPOINTS = {
   },
   // 环境变量相关
   ENV: {
-    LIST: '/env/list',
-    UPDATE: '/env/update',
-    DELETE: '/env/delete',
+    LIST: '/env-list',
+    UPDATE: '/env-update',
+    DELETE: '/env-delete',
   },
 }

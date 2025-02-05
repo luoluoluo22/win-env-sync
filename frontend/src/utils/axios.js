@@ -13,13 +13,21 @@ const http = axios.create({
 // 请求拦截器
 http.interceptors.request.use(
   (config) => {
+    // 添加token
     const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
+
+    // 针对Netlify Functions的特殊处理
+    if (!config.url.startsWith('http') && !config.url.startsWith('/.netlify')) {
+      config.url = `/.netlify/functions${config.url}`
+    }
+
     return config
   },
   (error) => {
+    console.error('请求错误:', error)
     return Promise.reject(error)
   }
 )
@@ -27,6 +35,7 @@ http.interceptors.request.use(
 // 响应拦截器
 http.interceptors.response.use(
   (response) => {
+    // 直接返回响应数据
     return response.data
   },
   (error) => {
@@ -36,18 +45,30 @@ http.interceptors.response.use(
         case 401:
           // 未授权或token过期
           localStorage.removeItem('token')
+          if (window.location.pathname !== '/login') {
+            window.location.href = '/login'
+          }
           break
         case 404:
-          console.error('请求的资源不存在')
+          console.error('请求的资源不存在:', error.response.config.url)
           break
         case 500:
-          console.error('服务器错误')
+          console.error('服务器错误:', error.response.data)
           break
         default:
-          console.error('发生错误:', error.response.data.message)
+          console.error('请求失败:', error.response.data)
       }
       return Promise.reject(error.response.data)
     }
+
+    if (error.request) {
+      // 请求已发送但没有收到响应
+      console.error('没有收到响应:', error.request)
+      return Promise.reject({ message: '网络错误，请检查您的连接' })
+    }
+
+    // 发送请求时出错
+    console.error('请求配置错误:', error.message)
     return Promise.reject(error)
   }
 )

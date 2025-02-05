@@ -1,9 +1,10 @@
 import http from '../utils/axios'
+import { API_ENDPOINTS } from '../config/api'
 
 export function useAuth() {
   const login = async ({ email, password }) => {
     try {
-      const { token, user } = await http.post('/login', {
+      const { token, user } = await http.post(API_ENDPOINTS.AUTH.LOGIN, {
         email,
         password,
       })
@@ -17,7 +18,7 @@ export function useAuth() {
 
   const logout = async () => {
     try {
-      await http.post('/logout')
+      await http.post(API_ENDPOINTS.AUTH.LOGOUT)
     } finally {
       localStorage.removeItem('token')
     }
@@ -30,7 +31,8 @@ export function useAuth() {
     }
 
     try {
-      return await http.get('/me')
+      const response = await http.get(API_ENDPOINTS.AUTH.ME)
+      return response.user
     } catch (error) {
       localStorage.removeItem('token')
       return null

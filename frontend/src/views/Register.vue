@@ -44,6 +44,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import http from '../utils/axios'
+import { API_ENDPOINTS } from '../config/api'
 
 const router = useRouter()
 const formRef = ref(null)
@@ -100,7 +101,7 @@ async function handleSubmit() {
     await formRef.value.validate()
     loading.value = true
 
-    await http.post('/register', {
+    await http.post(API_ENDPOINTS.AUTH.REGISTER, {
       email: form.value.email,
       username: form.value.username,
       password: form.value.password,
@@ -109,8 +110,8 @@ async function handleSubmit() {
     ElMessage.success('注册成功！请登录')
     router.push('/login')
   } catch (error) {
-    if (error.response?.data?.message) {
-      ElMessage.error(error.response.data.message)
+    if (error.message) {
+      ElMessage.error(error.message)
     } else {
       ElMessage.error('注册失败，请重试')
     }
