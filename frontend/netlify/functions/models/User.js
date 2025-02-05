@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 
 const userSchema = new mongoose.Schema(
   {
@@ -66,4 +66,5 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 userSchema.index({ email: 1 }, { unique: true })
 
 // 确保模型只被创建一次
-module.exports = mongoose.models.User || mongoose.model('User', userSchema)
+const User = mongoose.models.User || mongoose.model('User', userSchema)
+export default User

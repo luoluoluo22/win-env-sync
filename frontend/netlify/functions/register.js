@@ -1,7 +1,7 @@
-const { connectDb } = require('./utils/db')
-const User = require('./models/User')
+import { connectDb } from './utils/db.js'
+import User from './models/User.js'
 
-exports.handler = async function (event, context) {
+export const handler = async function (event, context) {
   // 设置CORS头
   const headers = {
     'Access-Control-Allow-Origin': '*',

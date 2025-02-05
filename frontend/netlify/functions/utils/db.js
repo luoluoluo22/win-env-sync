@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 // 缓存数据库连接
 let cachedDb = null
 
-async function connectDb() {
+export async function connectDb() {
   // 如果已经有连接，直接返回
   if (cachedDb) {
     return cachedDb
@@ -52,9 +52,4 @@ async function connectDb() {
     console.error('MongoDB连接失败:', error)
     throw error
   }
-}
-
-// 导出连接函数
-module.exports = {
-  connectDb,
 }
