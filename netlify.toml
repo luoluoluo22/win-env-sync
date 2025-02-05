@@ -2,21 +2,35 @@
   base = "frontend"
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 # 将所有路由重定向到index.html以支持SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
+  conditions = {Role = ["admin", "regular"]}
+
+# API 重定向
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
 
 # 环境变量设置
-[context.production.environment]
-  VITE_APP_API_URL = "/.netlify/functions"
+[build.environment]
   NODE_VERSION = "16"
 
+# 生产环境配置
+[context.production.environment]
+  MONGODB_URI = "mongodb+srv://admin:a13689663458@cluster0.2b2h0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  JWT_SECRET = "win-env-sync-production-secret-key-2025"
+
 # 开发环境配置
-[context.dev.environment]
-  VITE_APP_API_URL = "http://localhost:3000"
+[context.branch-deploy.environment]
+  MONGODB_URI = "mongodb+srv://admin:a13689663458@cluster0.2b2h0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  JWT_SECRET = "win-env-sync-dev-secret-key-2025"
 
 # 确保使用HTTPS
 [[headers]]
@@ -26,4 +40,4 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.auth0.com; img-src 'self' data: https:; font-src 'self' data: https:;"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.mongodb.net; img-src 'self' data: https:; font-src 'self' data: https:;"
