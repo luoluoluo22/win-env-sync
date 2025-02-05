@@ -1,6 +1,6 @@
 [build]
   base = "frontend"
-  command = "npm install && npm run build"
+  command = "npm ci && npm run build"
   publish = "dist"
   functions = "netlify/functions"
 
@@ -40,6 +40,7 @@
 # 环境变量设置
 [build.environment]
   NODE_VERSION = "18"
+  NODE_ENV = "development"
 
 # 生产环境配置
 [context.production.environment]
