@@ -1,8 +1,8 @@
-const { connectDb } = require('./utils/db')
-const User = require('./models/User')
-const jwt = require('jsonwebtoken')
+import { connectDb } from './utils/db.js'
+import User from './models/User.js'
+import jwt from 'jsonwebtoken'
 
-exports.handler = async function (event, context) {
+export const handler = async function (event, context) {
   // 设置CORS头
   const headers = {
     'Access-Control-Allow-Origin': '*',
