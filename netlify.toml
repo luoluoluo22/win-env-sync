@@ -1,0 +1,29 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+# 将所有路由重定向到index.html以支持SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# 环境变量设置
+[context.production.environment]
+  VITE_APP_API_URL = "/.netlify/functions"
+  NODE_VERSION = "16"
+
+# 开发环境配置
+[context.dev.environment]
+  VITE_APP_API_URL = "http://localhost:3000"
+
+# 确保使用HTTPS
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.auth0.com; img-src 'self' data: https:; font-src 'self' data: https:;"
