@@ -1,12 +1,9 @@
 <template>
   <div>
     <div v-if="loading" class="loading-container">
-      <el-spin class="loading">
-        <el-icon><loading /></el-icon>
-        <div>加载中...</div>
-      </el-spin>
+      <el-loading :fullscreen="true" />
     </div>
-    
+
     <div v-else-if="!isAuthenticated">
       <div class="login-container">
         <el-card class="login-card">
@@ -21,18 +18,20 @@
               <el-input v-model="loginForm.password" type="password" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="handleLogin" :loading="loginLoading">
+              <el-button
+                type="primary"
+                @click="handleLogin"
+                :loading="loginLoading"
+              >
                 登录
               </el-button>
-              <el-button @click="handleRegister">
-                注册
-              </el-button>
+              <el-button @click="handleRegister"> 注册 </el-button>
             </el-form-item>
           </el-form>
         </el-card>
       </div>
     </div>
-    
+
     <div v-else>
       <slot :user="user"></slot>
     </div>
@@ -42,7 +41,6 @@
 <script setup>
 import { ref, provide, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { Loading } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { useAuth } from './useAuth'
 
@@ -54,7 +52,7 @@ const user = ref(null)
 
 const loginForm = ref({
   email: '',
-  password: ''
+  password: '',
 })
 
 const { login, logout, checkAuth } = useAuth()
@@ -67,7 +65,7 @@ provide('auth', {
     isAuthenticated.value = false
     user.value = null
     router.push('/login')
-  }
+  },
 })
 
 async function handleLogin() {
@@ -111,10 +109,6 @@ onMounted(async () => {
   height: 100vh;
 }
 
-.loading {
-  text-align: center;
-}
-
 .login-container {
   display: flex;
   justify-content: center;
@@ -136,4 +130,4 @@ onMounted(async () => {
   font-size: 24px;
   color: #303133;
 }
-</style> 
+</style>

@@ -2,10 +2,7 @@
   <div>
     <template v-if="loading">
       <div class="loading-container">
-        <el-spin class="loading">
-          <el-icon><loading /></el-icon>
-          <div>加载中...</div>
-        </el-spin>
+        <el-loading :fullscreen="true" />
       </div>
     </template>
 
@@ -28,9 +25,15 @@
                 </el-button>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click="showDevices">设备管理</el-dropdown-item>
-                    <el-dropdown-item @click="showHistory">同步历史</el-dropdown-item>
-                    <el-dropdown-item divided @click="handleLogout">退出登录</el-dropdown-item>
+                    <el-dropdown-item @click="showDevices"
+                      >设备管理</el-dropdown-item
+                    >
+                    <el-dropdown-item @click="showHistory"
+                      >同步历史</el-dropdown-item
+                    >
+                    <el-dropdown-item divided @click="handleLogout"
+                      >退出登录</el-dropdown-item
+                    >
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -49,7 +52,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ArrowDown, Loading } from '@element-plus/icons-vue'
+import { ArrowDown } from '@element-plus/icons-vue'
 import { useAuthProvider } from './auth/useAuthProvider'
 
 const router = useRouter()
@@ -80,10 +83,6 @@ onMounted(async () => {
   height: 100vh;
 }
 
-.loading {
-  text-align: center;
-}
-
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -107,4 +106,4 @@ onMounted(async () => {
   background-color: #f5f7fa;
   min-height: calc(100vh - 60px);
 }
-</style> 
+</style>
