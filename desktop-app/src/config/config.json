@@ -1,0 +1,8 @@
+{
+  "syncItems": {
+    "user": [],
+    "system": []
+  },
+  "syncInterval": 300000,
+  "backupPath": "data/env-backup.json"
+}

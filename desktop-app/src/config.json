@@ -1,0 +1,43 @@
+{
+  "syncItems": {
+    "user": [
+      "Path",
+      "TEMP",
+      "RESOLVE_SCRIPT_API",
+      "PYTHONPATH",
+      "HEWEATHER_API_KEY",
+      "ChocolateyLastPathUpdate",
+      "TMP",
+      "RESOLVE_SCRIPT_LIB"
+    ],
+    "system": [
+      "ANDROID_SDK_HOME",
+      "OPENAI_API_KEY",
+      "NVTOOLSEXT_PATH",
+      "PROCESSOR_ARCHITECTURE",
+      "Path",
+      "CUDA_PATH_V11_8",
+      "OPENSSL_CONF",
+      "PATHEXT",
+      "StartPageUrl",
+      "ChocolateyInstall",
+      "PSModulePath",
+      "DriverData",
+      "CUDA_PATH",
+      "MOSQUITTO_DIR",
+      "USERNAME",
+      "OS",
+      "PROCESSOR_IDENTIFIER",
+      "ComSpec",
+      "INTEL_DEV_REDIST",
+      "TEMP",
+      "OPENAI_URL",
+      "NUMBER_OF_PROCESSORS",
+      "PROCESSOR_LEVEL",
+      "TMP",
+      "windir",
+      "PROCESSOR_REVISION",
+      "PSDrive"
+    ]
+  }
+}
